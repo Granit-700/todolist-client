@@ -17,12 +17,3 @@
 .TodoAdd input::placeholder {
   color: #B3B3B3;
 }
-
-.TodoAdd button {
-  background-color: #2C2C2C;
-  color: #fff;
-  border-radius: 8px;
-  padding: 12px;
-  font-size: 16px;
-  line-height: 100%;
-}

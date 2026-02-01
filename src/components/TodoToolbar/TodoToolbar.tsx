@@ -1,5 +1,6 @@
 import "./TodoToolbar.css";
 import { useDeleteAllTodo, useDoneCount, useTodosCount } from "../../todoStore";
+import { Button } from "../Button/Button";
 
 const TodoToolbar = () => {
 
@@ -18,12 +19,12 @@ const TodoToolbar = () => {
         </span>
       </div>
       {todosCount >= 1 && (
-        <button
-          className="deleteAllBtn"
+        <Button
           onClick={deleteAllTodos}
+          variant="text"
         >
           Delete All
-        </button>
+        </Button>
       )}
     </div>
   );

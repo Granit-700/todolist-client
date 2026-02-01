@@ -1,6 +1,7 @@
 import "./TodoAdd.css"
 import { useState } from "react";
 import { useCreateTodo } from "../../../todoStore";
+import { Button } from "../../Button/Button";
 
 const TodoAdd = () => {
   const [value, setValue] = useState("");
@@ -15,14 +16,15 @@ const TodoAdd = () => {
         value={value}
         onChange={e => setValue(e.target.value)}
       />
-      <button
+      <Button
         onClick={() => {
           createTodo(value);
           setValue("");
         }}
+        variant="primary"
       >
         Add
-      </button>
+      </Button>
     </div>
   );
 };

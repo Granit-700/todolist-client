@@ -1,0 +1,15 @@
+.primary {
+  background-color: #2C2C2C;
+  color: #fff;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 16px;
+  line-height: 100%;
+}
+
+.text {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 140%;
+  color: #000000;
+}
