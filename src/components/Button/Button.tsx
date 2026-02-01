@@ -7,7 +7,13 @@ interface ButtonProps {
   variant?: "primary" | "text";
 };
 
-export const Button = ({ children, onClick, variant="primary" }: ButtonProps) => {
+export const Button = (props: ButtonProps) => {
+  const {
+    children,
+    onClick,
+    variant = "primary",
+  } = props;
+
   return (
     <button
       onClick={onClick}
