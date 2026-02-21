@@ -17,8 +17,8 @@ const TodoAdd = () => {
         onChange={e => setValue(e.target.value)}
       />
       <Button
-        onClick={() => {
-          createTodo(value);
+        onClick={async () => {
+          await createTodo(value);
           setValue("");
         }}
         variant="primary"

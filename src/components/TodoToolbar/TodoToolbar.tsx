@@ -20,7 +20,7 @@ const TodoToolbar = () => {
       </div>
       {todosCount >= 1 && (
         <Button
-          onClick={deleteAllTodos}
+          onClick={async () => await deleteAllTodos()}
           variant="text"
         >
           Delete All

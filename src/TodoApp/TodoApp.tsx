@@ -4,13 +4,13 @@ import TodoHeader from "../components/Header/Header";
 import TodoInput from "../components/TodoInput/TodoInput";
 import TodoList from "../components/TodoList/TodoList";
 import TodoToolbar from "../components/TodoToolbar/TodoToolbar";
-import { useTodos } from "../todoStore";
+import { useGetTodos } from "../todoStore";
+import { useEffect } from "react";
 
 function TodoApp() {
-  const todos = useTodos();
+  const getTodos = useGetTodos();
 
-  // debug
-  console.log(todos);
+  useEffect(() => { getTodos() }, []);
 
   return (
     <div id="TodoApp">

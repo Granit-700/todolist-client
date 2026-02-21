@@ -1,75 +1,92 @@
 import { create } from "zustand";
 import type { TodoListType, UpdateTodoParams } from "./types";
+import api from "./api";
 
 interface State {
   todos: TodoListType | [];
-  createTodo: (text: string) => void;
-  updateTodo: ({ id, text, isDone }: UpdateTodoParams) => boolean;
-  deleteTodo: (id: number) => void;
-  deleteAllTodo: () => void;
+  getTodos: () => Promise<void>
+  createTodo: (text: string) => Promise<void>;
+  updateTodo: ({ id, text, isDone }: UpdateTodoParams) => Promise<boolean>;
+  deleteTodo: (id: number) => Promise<void>;
+  deleteAllTodo: () => Promise<void>;
 };
 
-const getInitTodos = (): TodoListType => {
-  const saved = localStorage.getItem("todos");
-  return saved ? JSON.parse(saved) : [];
-};
-
-const useTodoStore = create<State>((set, get) => {
+const useTodoStore = create<State>((set) => {
   return {
-    todos: getInitTodos(),
-    createTodo: (text) => {
-      const trimmedText = text.trim();
-      if (trimmedText) {
-        set((state) => ({
-          todos: [
-            ...state.todos,
-            {
-              id: Date.now(),
-              text: trimmedText,
-              isDone: false,
-            }
-          ]
-        }));
+    todos: [],
+    getTodos: async () => {
+      try {
+        const { data } = await api.get("/api/todos");
+        set({ todos: data });
+
+      } catch (e) {
+        if (e instanceof Error) console.error(e.message);
       };
     },
-    updateTodo: ({ id, text, isDone }) => {
+    createTodo: async (text) => {
+      const trimmedText = text.trim();
+      if (!trimmedText) return;
+      try {
+        const { data } = await api.post("/api/todos", {
+          text: trimmedText
+        });
+        set(state => ({ todos: [...state.todos, data] }))
+
+      } catch (e) {
+        if (e instanceof Error) console.error(e.message);
+      };
+    },
+    updateTodo: async ({ id, text, isDone }) => {
       const trimmedText = text?.trim();
       if (text !== undefined && !trimmedText) return false;
+      try {
+        const { data } = await api.patch(`/api/todos/${id}`, {
+          text: trimmedText,
+          isDone,
+        });
+        set(state => ({
+          todos:
+            state.todos.map(todo =>
+              todo.id === id
+                ? {
+                  ...todo,
+                  ...(text !== undefined && { text: data.text }),
+                  ...(isDone !== undefined && { isDone: data.isDone }),
+                }
+                : todo
+            )
+        }));
 
-      set((state) => ({
-        todos:
-          state.todos.map(todo =>
-            todo.id === id
-              ? {
-                ...todo,
-                ...(text !== undefined && { text: trimmedText }),
-                ...(isDone !== undefined && { isDone }),
-              }
-              : todo
-          )
-      }));
+      } catch (e) {
+        if (e instanceof Error) console.error(e.message);
+      };
       return true;
     },
-    deleteTodo: (id) => {
-      set((state) => ({
-        todos: state.todos.filter(todo => todo.id !== id)
-      }));
-    },
-    deleteAllTodo: () => {
-      set({
-        todos: []
-      });
-    },
-  };
-});
+    deleteTodo: async (id) => {
+      try {
+        const { data } = await api.delete(`/api/todos/${id}`);
+        set(state => ({
+          todos: state.todos.filter(todo => todo.id !== data.id)
+        }));
 
-useTodoStore.subscribe((state, prevState) => {
-  if (state.todos !== prevState.todos) {
-    localStorage.setItem("todos", JSON.stringify(state.todos));
+      } catch (e) {
+        if (e instanceof Error) console.error(e.message);
+      };
+    },
+    deleteAllTodo: async () => {
+      try {
+        await api.delete("/api/todos");
+        set({ todos: [] });
+
+      } catch (e) {
+        if (e instanceof Error) console.error(e.message);
+      };
+    },
   };
 });
 
 export const useTodos = () => useTodoStore(store => store.todos);
+export const useGetTodos = () => useTodoStore(store => store.getTodos);
 export const useCreateTodo = () => useTodoStore(store => store.createTodo);
 export const useUpdateTodo = () => useTodoStore(store => store.updateTodo);
 export const useDeleteTodo = () => useTodoStore(store => store.deleteTodo);

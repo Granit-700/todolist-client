@@ -23,14 +23,14 @@ const TodoItem = ({ todo }: TodoItemProps) => {
           <input
             type="checkbox"
             checked={todo.isDone}
-            onChange={e => {
-              updateTodo({ id: todo.id, isDone: e.target.checked });
+            onChange={async e => {
+              await updateTodo({ id: todo.id, isDone: e.target.checked });
             }}
           />
           <p className={`text ${todo.isDone}`} >
             {todo.text}
           </p>
-          <button  onClick={() => setIsOpen(true)}>
+          <button onClick={() => setIsOpen(true)}>
             <img src="src/assets/icons/edit.svg" alt="edit" />
           </button>
           <TodoRemove currentId={todo.id} />

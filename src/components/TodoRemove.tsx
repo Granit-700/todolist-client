@@ -8,7 +8,7 @@ const TodoRemove = ({ currentId }: TodoRemoveProps) => {
   return (
     <button
       className="delete_Btn"
-      onClick={() => deleteTodo(currentId)}
+      onClick={async () => await deleteTodo(currentId)}
     >
       <img src="src/assets/icons/cross.svg" alt="cross" />
     </button>

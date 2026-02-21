@@ -15,8 +15,8 @@ const TodoEdit = ({ todo, setIsOpen }: TodoEditProps) => {
         onChange={e => setText(e.target.value)}
       />
       <button
-        onClick={() => {
-          if (updateTodo({ id: todo.id, text })) {
+        onClick={async () => {
+          if (await updateTodo({ id: todo.id, text })) {
             setIsOpen(false);
           };
         }}
