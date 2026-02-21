@@ -3,14 +3,10 @@ import type { TodoListType, UpdateTodoParams } from "./types";
 
 interface State {
   todos: TodoListType | [];
-  filter: string;
-  filteredTodos: TodoListType | [];
   createTodo: (text: string) => void;
   updateTodo: ({ id, text, isDone }: UpdateTodoParams) => boolean;
   deleteTodo: (id: number) => void;
   deleteAllTodo: () => void;
-  setFilter: (text: string) => void;
-  filterTodos: () => void;
 };
 
 const getInitTodos = (): TodoListType => {
@@ -21,8 +17,6 @@ const getInitTodos = (): TodoListType => {
 const useTodoStore = create<State>((set, get) => {
   return {
     todos: getInitTodos(),
-    filter: "",
-    filteredTodos: getInitTodos(),
     createTodo: (text) => {
       const trimmedText = text.trim();
       if (trimmedText) {
@@ -37,7 +31,6 @@ const useTodoStore = create<State>((set, get) => {
           ]
         }));
       };
-      get().filterTodos() // fix
     },
     updateTodo: ({ id, text, isDone }) => {
       const trimmedText = text?.trim();
@@ -55,33 +48,17 @@ const useTodoStore = create<State>((set, get) => {
               : todo
           )
       }));
-      get().filterTodos() // fix
       return true;
     },
     deleteTodo: (id) => {
       set((state) => ({
         todos: state.todos.filter(todo => todo.id !== id)
       }));
-      get().filterTodos() // fix
     },
     deleteAllTodo: () => {
       set({
         todos: []
       });
-      get().filterTodos() // fix
-    },
-    setFilter: (text) => {
-      set({ filter: text });
-      get().filterTodos();
-    },
-    filterTodos: () => {
-      const filter = get().filter.trim().toLowerCase();
-
-      set((state) => ({
-        filteredTodos: filter
-          ? state.todos.filter(todo => todo.text.toLowerCase().includes(filter))
-          : state.todos
-      }));
     },
   };
 });
@@ -92,16 +69,13 @@ useTodoStore.subscribe((state, prevState) => {
   };
 });
 
-export const useInitTodos = () => useTodoStore(store => store.todos);
-export const useTodos = () => useTodoStore(store => store.filteredTodos);
+export const useTodos = () => useTodoStore(store => store.todos);
 export const useCreateTodo = () => useTodoStore(store => store.createTodo);
 export const useUpdateTodo = () => useTodoStore(store => store.updateTodo);
 export const useDeleteTodo = () => useTodoStore(store => store.deleteTodo);
 export const useDeleteAllTodo = () => useTodoStore(store =>
   store.deleteAllTodo
 );
-
-export const useSetFilter = () => useTodoStore(store => store.setFilter);
 
 export const useTodosCount = () => useTodoStore(store => store.todos.length);
 export const useDoneCount = () => useTodoStore(store =>
