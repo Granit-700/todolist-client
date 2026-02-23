@@ -1,0 +1,25 @@
+.TodoSearch {
+  position: relative;
+}
+
+.TodoSearch input {
+  width: 100%;
+  padding: 12px;
+  padding-left: 16px;
+  padding-right: 36px;
+  border: #D9D9D9 1px solid;
+  border-radius: 8px;
+  width: 100%;
+  line-height: 100%;
+}
+
+.TodoSearch input::placeholder {
+  color: #B3B3B3;
+}
+
+.TodoSearch img {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 12px;
+}

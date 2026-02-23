@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import type { TodoListType, UpdateTodoParams } from "./types";
 import api from "./api";
+import { useShallow } from "zustand/shallow";
 
 interface State {
   todos: TodoListType | [];
@@ -92,11 +93,11 @@ const useTodoStore = create<State>((set) => {
 });
 
 export const useTodos = () => useTodoStore(store => store.todos);
-export const useFilteredTodos = () => useTodoStore(store =>
+export const useFilteredTodos = () => useTodoStore(useShallow(store =>
   store.todos.filter(todo =>
     todo.text.toLowerCase().includes(store.filter.toLowerCase())
   )
-);
+));
 export const useSetFilter = () => useTodoStore(store => store.setFilter);
 
 export const useGetTodos = () => useTodoStore(store => store.getTodos);
