@@ -1,10 +1,10 @@
 import "./TodoList.css";
-import { useTodos } from "../../todoStore";
+import { useFilteredTodos } from "../../todoStore";
 import TodoItem from "../TodoItem/TodoItem";
 
 const TodoList = () => {
 
-  const todos = useTodos();
+  const todos = useFilteredTodos();
 
   return (
     <>

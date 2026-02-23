@@ -1,19 +1,23 @@
 import { create } from "zustand";
 import type { TodoListType, UpdateTodoParams } from "./types";
 import api from "./api";
+import { useShallow } from "zustand/shallow";
 
 interface State {
   todos: TodoListType | [];
+  filter: string;
   getTodos: () => Promise<void>
   createTodo: (text: string) => Promise<void>;
   updateTodo: ({ id, text, isDone }: UpdateTodoParams) => Promise<boolean>;
   deleteTodo: (id: number) => Promise<void>;
   deleteAllTodo: () => Promise<void>;
+  setFilter: (filter: string) => void;
 };
 
 const useTodoStore = create<State>((set) => {
   return {
     todos: [],
+    filter: "",
     getTodos: async () => {
       try {
         const { data } = await api.get("/api/todos");
@@ -82,10 +86,20 @@ const useTodoStore = create<State>((set) => {
         if (e instanceof Error) console.error(e.message);
       };
     },
+    setFilter: (filter) => {
+      set({ filter });
+    },
   };
 });
 
 export const useTodos = () => useTodoStore(store => store.todos);
+export const useFilteredTodos = () => useTodoStore(useShallow(store =>
+  store.todos.filter(todo =>
+    todo.text.toLowerCase().includes(store.filter.toLowerCase())
+  )
+));
+export const useSetFilter = () => useTodoStore(store => store.setFilter);
+
 export const useGetTodos = () => useTodoStore(store => store.getTodos);
 export const useCreateTodo = () => useTodoStore(store => store.createTodo);
 export const useUpdateTodo = () => useTodoStore(store => store.updateTodo);
