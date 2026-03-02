@@ -1,5 +1,6 @@
 import { useSetFilter } from "../../../todoStore";
 import "./TodoSearch.css";
+import magnifierIcon from "../../../assets/icons/magnifier.svg";
 
 const TodoSearch = () => {
   const setFilter = useSetFilter();
@@ -11,7 +12,7 @@ const TodoSearch = () => {
       placeholder="Search task" 
       onChange={e => setFilter(e.target.value)}
       />
-      <img src="src/assets/icons/magnifier.svg" alt="magnifier" />
+      <img src={magnifierIcon} alt="magnifier" />
     </div>
   );
 };

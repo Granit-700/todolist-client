@@ -4,6 +4,7 @@ import type { TodoItemProps } from "../../types";
 import TodoEdit from "../TodoEdit";
 import TodoRemove from "../TodoRemove";
 import { useUpdateTodo } from "../../todoStore";
+import editIcon from "../../assets/icons/edit.svg";
 
 const TodoItem = ({ todo }: TodoItemProps) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,7 +32,7 @@ const TodoItem = ({ todo }: TodoItemProps) => {
             {todo.text}
           </p>
           <button onClick={() => setIsOpen(true)}>
-            <img src="src/assets/icons/edit.svg" alt="edit" />
+            <img src={editIcon} alt="edit" />
           </button>
           <TodoRemove currentId={todo.id} />
         </>

@@ -1,6 +1,7 @@
 import "./TodoItem/TodoItem.css"
 import { useDeleteTodo } from "../todoStore";
 import type { TodoRemoveProps } from "../types";
+import crossIcon from "../assets/icons/cross.svg";
 
 const TodoRemove = ({ currentId }: TodoRemoveProps) => {
   const deleteTodo = useDeleteTodo();
@@ -10,7 +11,7 @@ const TodoRemove = ({ currentId }: TodoRemoveProps) => {
       className="delete_Btn"
       onClick={async () => await deleteTodo(currentId)}
     >
-      <img src="src/assets/icons/cross.svg" alt="cross" />
+      <img src={crossIcon} alt="cross" />
     </button>
   );
 };
