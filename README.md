@@ -29,7 +29,7 @@ npm run dev
 
 ## Демо
 
-[Vercel]()
+[https://todolist-client-six.vercel.app](https://todolist-client-six.vercel.app)
 
 ## Бэкенд
 
