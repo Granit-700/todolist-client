@@ -4,7 +4,8 @@ import "./Button.css";
 interface ButtonProps {
   children: React.ReactNode;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
-  variant?: "primary" | "text";
+  variant?: "primary" | "outline" | "text";
+  size?: "sm" | "md" | "lg";
 };
 
 export const Button = (props: ButtonProps) => {
@@ -12,12 +13,13 @@ export const Button = (props: ButtonProps) => {
     children,
     onClick,
     variant = "primary",
+    size = "md",
   } = props;
 
   return (
     <button
       onClick={onClick}
-      className={variant}
+      className={`btn btn-${variant} btn-${size}`}
     >
       {children}
     </button>
