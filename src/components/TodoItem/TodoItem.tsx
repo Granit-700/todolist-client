@@ -1,7 +1,7 @@
 import "./TodoItem.css";
 import { useState } from "react";
 import type { TodoItemProps } from "../../types";
-import TodoEdit from "../TodoEdit";
+import TodoEdit from "../TodoEdit/TodoEdit";
 import TodoRemove from "../TodoRemove";
 import { useUpdateTodo } from "../../todoStore";
 import editIcon from "../../assets/icons/edit.svg";
