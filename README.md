@@ -25,11 +25,11 @@ VITE_API_URL=http://localhost:3001
 npm run dev
 ```
 
-> Для работы приложения нужен запущенный [бэкенд](https://github.com/Granit-700/todolist-server)
+> Для работы приложения нужен запущенный [бэкенд](#)
 
 ## Демо
 
-[https://todolist-client-six.vercel.app](https://todolist-client-six.vercel.app)
+[https://todolist-client-r6z0y1jz5-granit-700s-projects.vercel.app](https://todolist-client-r6z0y1jz5-granit-700s-projects.vercel.app)
 
 ## Бэкенд
 
