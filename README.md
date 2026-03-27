@@ -33,4 +33,4 @@ npm run dev
 
 ## Бэкенд
 
-[https://todolist-server-jtt2.onrender.com](https://todolist-server-jtt2.onrender.com)
+[https://todolist-server-rzg6.onrender.com](https://todolist-server-rzg6.onrender.com)
