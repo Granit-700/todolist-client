@@ -25,7 +25,7 @@ const TodoItem = ({ todo }: TodoItemProps) => {
             type="checkbox"
             checked={todo.isDone}
             onChange={async e => {
-              await updateTodo({ id: todo.id, isDone: e.target.checked });
+              await updateTodo({ _id: todo._id, isDone: e.target.checked });
             }}
           />
           <p className={`text ${todo.isDone}`} >
@@ -34,7 +34,7 @@ const TodoItem = ({ todo }: TodoItemProps) => {
           <button onClick={() => setIsOpen(true)}>
             <img src={editIcon} alt="edit" />
           </button>
-          <TodoRemove currentId={todo.id} />
+          <TodoRemove currentId={todo._id} />
         </>
       }
     </li>

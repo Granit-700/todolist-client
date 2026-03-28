@@ -11,7 +11,7 @@ const TodoList = () => {
       {todos.length > 0 && (
         <ul className="TodoList">
           {todos.map(todo => <TodoItem
-            key={todo.id}
+            key={todo._id}
             todo={todo}
           />)}
         </ul>
