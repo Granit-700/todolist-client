@@ -18,18 +18,19 @@ npm i
 
 Создать `.env` файл и вставить:
 ```
-VITE_API_URL=http://localhost:3001
+VITE_API_URL=https://todolist-server-rzg6.onrender.com
 ```
 Команда для запуска:
 ```bash
 npm run dev
 ```
 
-> Для работы приложения нужен запущенный [бэкенд](#)
+> [!WARNING]
+> Бэкенд на Render free при первом запуске может потребоваться подождать около 1 минуты
 
 ## Демо
 
-[https://todolist-client-r6z0y1jz5-granit-700s-projects.vercel.app](https://todolist-client-r6z0y1jz5-granit-700s-projects.vercel.app)
+[https://todolist-client-six.vercel.app](https://todolist-client-six.vercel.app)
 
 ## Бэкенд
 
