@@ -44,12 +44,10 @@ const useTodoStore = create<State>((set) => {
       const trimmedText = text?.trim();
       if (text !== undefined && !trimmedText) return false;
       try {
-        const body: any = {}
-
-        if (text !== undefined) body.text = trimmedText
-        if (isDone !== undefined) body.isDone = isDone
-
-        const { data } = await api.patch(`/api/todos/${_id}`, body);
+        const { data } = await api.patch(`/api/todos/${_id}`, {
+          text: trimmedText,
+          isDone,
+        });
         set(state => ({
           todos:
             state.todos.map(todo =>
