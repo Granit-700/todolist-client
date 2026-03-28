@@ -1,5 +1,5 @@
 export interface TodoItemType {
-  id: number;
+  _id: string;
   text: string;
   isDone: boolean;
 };
@@ -7,7 +7,7 @@ export interface TodoItemType {
 export type TodoListType = TodoItemType[];
 
 export interface UpdateTodoParams {
-  id: number;
+  _id: string;
   text?: string;
   isDone?: boolean;
 };
@@ -18,7 +18,7 @@ export interface TodoItemProps {
 };
 
 export interface TodoRemoveProps {
-  currentId: number;
+  currentId: string;
 };
 
 export interface TodoEditProps {

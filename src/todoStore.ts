@@ -8,8 +8,8 @@ interface State {
   filter: string;
   getTodos: () => Promise<void>
   createTodo: (text: string) => Promise<void>;
-  updateTodo: ({ id, text, isDone }: UpdateTodoParams) => Promise<boolean>;
-  deleteTodo: (id: number) => Promise<void>;
+  updateTodo: ({ _id, text, isDone }: UpdateTodoParams) => Promise<boolean>;
+  deleteTodo: (_id: string) => Promise<void>;
   deleteAllTodo: () => Promise<void>;
   setFilter: (filter: string) => void;
 };
@@ -40,24 +40,18 @@ const useTodoStore = create<State>((set) => {
         if (e instanceof Error) console.error(e.message);
       };
     },
-    updateTodo: async ({ id, text, isDone }) => {
+    updateTodo: async ({ _id, text, isDone }) => {
       const trimmedText = text?.trim();
       if (text !== undefined && !trimmedText) return false;
       try {
-        const { data } = await api.patch(`/api/todos/${id}`, {
+        const { data } = await api.patch(`/api/todos/${_id}`, {
           text: trimmedText,
           isDone,
         });
         set(state => ({
           todos:
             state.todos.map(todo =>
-              todo.id === id
-                ? {
-                  ...todo,
-                  ...(text !== undefined && { text: data.text }),
-                  ...(isDone !== undefined && { isDone: data.isDone }),
-                }
-                : todo
+              todo._id === _id ? data : todo
             )
         }));
 
@@ -66,11 +60,11 @@ const useTodoStore = create<State>((set) => {
       };
       return true;
     },
-    deleteTodo: async (id) => {
+    deleteTodo: async (_id) => {
       try {
-        const { data } = await api.delete(`/api/todos/${id}`);
+        const { data } = await api.delete(`/api/todos/${_id}`);
         set(state => ({
-          todos: state.todos.filter(todo => todo.id !== data.id)
+          todos: state.todos.filter(todo => todo._id !== data._id)
         }));
 
       } catch (e) {
