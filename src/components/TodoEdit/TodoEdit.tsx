@@ -19,7 +19,7 @@ const TodoEdit = ({ todo, setIsOpen }: TodoEditProps) => {
       <div className="btns-wrap">
         <Button
           onClick={async () => {
-            if (await updateTodo({ id: todo.id, text })) {
+            if (await updateTodo({ _id: todo._id, text })) {
               setIsOpen(false);
             };
           }}

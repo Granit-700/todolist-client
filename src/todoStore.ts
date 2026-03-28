@@ -14,7 +14,7 @@ interface State {
   setFilter: (filter: string) => void;
 };
 
-const useTodoStore = create<State>((set, get) => {
+const useTodoStore = create<State>((set) => {
   return {
     todos: [],
     filter: "",
@@ -41,8 +41,6 @@ const useTodoStore = create<State>((set, get) => {
       };
     },
     updateTodo: async ({ _id, text, isDone }) => {
-      console.log({ _id, text, isDone });
-      
       const trimmedText = text?.trim();
       if (text !== undefined && !trimmedText) return false;
       try {
